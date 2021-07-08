@@ -7,6 +7,7 @@ SRCFYPP =\
         stdlib_linalg.fypp \
         stdlib_linalg_diag.fypp \
         stdlib_linalg_outer_product.fypp \
+        stdlib_linalg_cross_product.fypp \
         stdlib_optval.fypp \
         stdlib_quadrature.fypp \
         stdlib_quadrature_trapz.fypp \
@@ -142,3 +143,4 @@ stdlib_strings.o: stdlib_ascii.o \
 	stdlib_optval.o
 stdlib_math.o: stdlib_kinds.o
 stdlib_linalg_outer_product.o: stdlib_linalg.o
+stdlib_linalg_cross_product.o: stdlib_linalg.o

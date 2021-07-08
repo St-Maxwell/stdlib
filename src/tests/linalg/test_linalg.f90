@@ -2,7 +2,7 @@ program test_linalg
   
   use stdlib_error, only: check
   use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
-  use stdlib_linalg, only: diag, eye, trace, outer_product
+  use stdlib_linalg, only: diag, eye, trace, outer_product, cross_product
   
   implicit none
   
@@ -72,6 +72,21 @@ program test_linalg
   call test_outer_product_int32
   call test_outer_product_int64
 
+  !
+  ! cross product
+  !
+  call test_cross_product_int8
+  call test_cross_product_int16
+  call test_cross_product_int32
+  call test_cross_product_int64
+
+  call test_cross_product_rsp
+  call test_cross_product_rdp
+  call test_cross_product_rqp
+
+  call test_cross_product_csp
+  call test_cross_product_cdp
+  call test_cross_product_cqp
 
 contains
 
@@ -563,6 +578,125 @@ contains
          msg="all(abs(diff) == 0) failed.",warn=warn)
   end subroutine test_outer_product_int64
 
+  subroutine test_cross_product_int8
+    integer, parameter :: n = 3
+    integer(int8) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_int8"
+    u = [1,0,0]
+    v = [0,1,0]
+    expected = [0,0,1]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) == 0), &
+         msg="all(abs(diff) == 0) failed.",warn=warn)
+  end subroutine test_cross_product_int8
+
+  subroutine test_cross_product_int16
+    integer, parameter :: n = 3
+    integer(int16) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_int16"
+    u = [1,0,0]
+    v = [0,1,0]
+    expected = [0,0,1]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) == 0), &
+         msg="all(abs(diff) == 0) failed.",warn=warn)
+  end subroutine test_cross_product_int16
+
+  subroutine test_cross_product_int32
+    integer, parameter :: n = 3
+    integer(int32) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_int32"
+    u = [1,0,0]
+    v = [0,1,0]
+    expected = [0,0,1]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) == 0), &
+         msg="all(abs(diff) == 0) failed.",warn=warn)
+  end subroutine test_cross_product_int32
+
+  subroutine test_cross_product_int64
+    integer, parameter :: n = 3
+    integer(int64) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_int64"
+    u = [1,0,0]
+    v = [0,1,0]
+    expected = [0,0,1]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) == 0), &
+         msg="all(abs(diff) == 0) failed.",warn=warn)
+  end subroutine test_cross_product_int64
+
+  subroutine test_cross_product_rsp
+    integer, parameter :: n = 3
+    real(sp) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_rsp"
+    u = [1.1_sp,2.5_sp,2.4_sp]
+    v = [0.5_sp,1.5_sp,2.5_sp]
+    expected = [2.65_sp,-1.55_sp,0.4_sp]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) < sptol), &
+         msg="all(abs(diff) < sptol) failed.",warn=warn)
+  end subroutine test_cross_product_rsp
+
+  subroutine test_cross_product_rdp
+    integer, parameter :: n = 3
+    real(dp) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_rdp"
+    u = [1.1_dp,2.5_dp,2.4_dp]
+    v = [0.5_dp,1.5_dp,2.5_dp]
+    expected = [2.65_dp,-1.55_dp,0.4_dp]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) < dptol), &
+         msg="all(abs(diff) < dptol) failed.",warn=warn)
+  end subroutine test_cross_product_rdp
+
+  subroutine test_cross_product_rqp
+    integer, parameter :: n = 3
+    real(qp) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_rqp"
+    u = [1.1_qp,2.5_qp,2.4_qp]
+    v = [0.5_qp,1.5_qp,2.5_qp]
+    expected = [2.65_qp,-1.55_qp,0.4_qp]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) < qptol), &
+         msg="all(abs(diff) < qptol) failed.",warn=warn)
+  end subroutine test_cross_product_rqp
+
+  subroutine test_cross_product_csp
+    integer, parameter :: n = 3
+    complex(sp) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_csp"
+    u = [cmplx(0,1,sp),cmplx(1,0,sp),cmplx(0,0,sp)]
+    v = [cmplx(1,1,sp),cmplx(0,0,sp),cmplx(1,0,sp)]
+    expected = [cmplx(1,0,sp),cmplx(0,-1,sp),cmplx(-1,-1,sp)]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) < sptol), &
+         msg="all(abs(diff) < sptol) failed.",warn=warn)
+  end subroutine test_cross_product_csp
+
+  subroutine test_cross_product_cdp
+    integer, parameter :: n = 3
+    complex(dp) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_cdp"
+    u = [cmplx(0,1,dp),cmplx(1,0,dp),cmplx(0,0,dp)]
+    v = [cmplx(1,1,dp),cmplx(0,0,dp),cmplx(1,0,dp)]
+    expected = [cmplx(1,0,dp),cmplx(0,-1,dp),cmplx(-1,-1,dp)]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) < dptol), &
+         msg="all(abs(diff) < dptol) failed.",warn=warn)
+  end subroutine test_cross_product_cdp
+
+  subroutine test_cross_product_cqp
+    integer, parameter :: n = 3
+    complex(qp) :: u(n), v(n), expected(n), diff(n)
+    write(*,*) "test_cross_product_cqp"
+    u = [cmplx(0,1,qp),cmplx(1,0,qp),cmplx(0,0,qp)]
+    v = [cmplx(1,1,qp),cmplx(0,0,qp),cmplx(1,0,qp)]
+    expected = [cmplx(1,0,qp),cmplx(0,-1,qp),cmplx(-1,-1,qp)]
+    diff = expected - cross_product(u,v)
+    call check(all(abs(diff) < qptol), &
+         msg="all(abs(diff) < qptol) failed.",warn=warn)
+  end subroutine test_cross_product_cqp
 
   pure recursive function catalan_number(n) result(value)
     integer, intent(in) :: n
