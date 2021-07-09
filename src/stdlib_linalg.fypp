@@ -86,8 +86,8 @@ module stdlib_linalg
   interface cross_product
     !! version: experimental
     !!
-    !! Computes the cross product of two vectors, returning a rank-2 array
-    !! ([Specification](../page/specs/stdlib_linalg.html#description_3))
+    !! Computes the cross product of two vectors, returning a rank-1 and size-3 array
+    !! ([Specification](../page/specs/stdlib_linalg.html#cross_product-computes-the-cross-product-of-two-3-d-vectors))
     #:for k1, t1 in RCI_KINDS_TYPES
       module function cross_product_${t1[0]}$${k1}$(a, b) result(res)
         ${t1}$, intent(in) :: a(:), b(:)

@@ -206,3 +206,41 @@ program demo_outer_product
     !A = reshape([3., 6., 9., 4., 8., 12.], [3,2])
 end program demo_outer_product
 ```
+
+## `cross_product` - Computes the Cross Product of Two 3-D Vectors
+
+### Status
+
+Experimental
+
+### Description
+
+Computes the cross product of two 3-D vectors
+
+### Syntax
+
+`c = [[stdlib_linalg(module):cross_product(interface)]](a, b)`
+
+### Arguments
+
+`a`: Shall be a rank-1 and size-3 array
+
+`b`: Shall be a rank-1 and size-3 array
+
+### Return value
+
+Returns a rank-1 and size-3 array which is perpendicular to both `a` and `b`.
+
+### Example
+
+```fortran
+program demo_cross_product
+    use stdlib_linalg, only: cross_product
+    implicit none
+    real :: a(3), b(3), c(3)
+    a = [1., 0., 0.]
+    b = [0., 1., 0.]
+    c = cross_product(a, b)
+    !c = [0., 0., 1.]
+end program demo_cross_product
+```
