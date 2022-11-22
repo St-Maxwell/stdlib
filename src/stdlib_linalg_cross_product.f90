@@ -1,5 +1,5 @@
 submodule (stdlib_linalg) stdlib_linalg_cross_product
-    use stdlib_error, only: error_stop
+
     implicit none
 
 contains
